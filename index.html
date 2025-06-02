@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>De Boa Ação ✨</title>
+</head>
+<link rel="icon" type="image/png" href="img/icon.jpeg">
+
+
+<body>
+    <button id="chatbot-btn"><img src="img/chatbot.png" alt=""></button>
+
+    <section id="chatbot">
+    <form action="" id="chat-form">
+        <div id="chatbot-header">
+            <img src="img/icon2.png" alt="icon">
+            Chat 
+            <button id="close-chat" type="button">X</button>
+        </div>
+
+        <div id="chatbox"></div> <!-- Aqui vão aparecer as mensagens -->
+
+        <div id="chatbot-footer">
+            <input type="text" name="message" id="user-input" autocomplete="off">
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+</section>
+
+
+    <header>
+        <nav>
+            <h1>De Boa Ação</h1>
+            <ul>
+                <li><a href="#about">Sobre nós</a></li>
+                <li><a href="#map-section">Mapa</a></li>
+                <li><a href="#contatos">Contatos</a></li>
+            </ul>
+        </nav>
+
+        <section>
+            <h1 class="appear-animation">De Boa Ação</h1>
+            <p>Pequenas ações, grandes transformações.</p>
+        </section>
+    </header>
+
+    <main>
+        <section id="about" class="content">
+            <article id="about-text" class="appear-animation">
+                <h2>Nosso projeto</h2>
+                <p>Nosso projeto é um mapa interativo com pontos de doação e serviços sociais gratuitos em São Paulo,
+                    alinhado aos Objetivos de Desenvolvimento Sustentável da ONU (ODS 1, 2 e 10), promovendo inclusão,
+                    combate à pobreza, fome e redução das desigualdades.
+                </p>
+            </article>
+            <article id="about-img" class="appear-animation">
+                <figure>
+                    <img src="img/doacao.webp" alt="doacao">
+                </figure>
+            </article>
+        </section>
+
+        <section id="map-section" class="content appear-animation">
+            <h1>Encontre o ponto de doação mais próximo!</h1>
+
+            <div id="map-container">
+                <iframe id="map-frame" src=""></iframe>
+            </div>
+
+            <div id="map-controls">
+                <button id="prev-map">Anterior</button>
+                <button id="next-map">Próximo</button>
+            </div>
+
+            
+    </main>
+
+    <footer>
+        <article id="creditos">
+            <section id="criadores">
+                <h1>Criadores do projeto</h1>
+                <ul>
+                    <li>Adrielly Molina Giacon</li>
+                    <li>Bruno Pereira Alves</li>
+                    <li>Gabriel De França Gaudêncio</li>
+                    <li>Larissa Torres Ferreira</li>
+                    <li>Matheus Cecilio Barros</li>
+                    <li>Matheus Fabbri Vicente</li>
+                    <li>Otavio Alves Cruz De Oliveira Santos</li>
+                    <li>Pedro De Oliveira Faichel</li>
+                    <li>Victoria Andreozzi Gualano</li>
+                    <li>Vinicius Leonardo Da Silva</li>
+
+                </ul>
+            </section>
+            <section id="texto-doação">
+                <p>
+                    "Doar é um ato de empatia e solidariedade!
+                    Nossa página conecta quem quer ajudar e quem mais precisa, promovendo esperança e dignidade."
+
+                </p>
+
+            </section>
+        </article>
+
+        <article id="contatos">
+            <h1>Contatos</h1>
+            <p>Grupo De Boa Ação</p>
+            <p>Email:deboaacao@gmail.com</p>
+           <p>Instagram: <a href="https://www.instagram.com/deboaacao" target="_blank" class="instagram-link">@deboaacao</a></p>
+
+
+        </article>
+    </footer>
+
+    <script>
+        document.getElementById('chatbot-btn').addEventListener('click', function () {
+            document.getElementById('chatbot-btn').style.scale = 0;
+            document.getElementById('chatbot').style.scale = 1;
+        });
+
+        document.getElementById('close-chat').addEventListener('click', function () {
+            event.preventDefault();
+            document.getElementById('chatbot').style.scale = 0;
+            document.getElementById('chatbot-btn').style.scale = 1;
+        });
+
+        const maps = [
+            {
+                nome: "Banco de Alimentos",
+                link: "https://www.google.com/maps/d/embed?mid=1WberAFnBZwC1B_ThSlMHwalF7lMq5t4&ehbc=2E312F"
+            },
+            {
+                nome: "Pontos de Alimentos",
+                link: "https://www.google.com/maps/d/embed?mid=1UJVgedVRrfsIsFI5RnAnOswyRepQ6cY&ehbc=2E312F"
+            },
+            {
+                nome: "Cozinhas Comunitárias",
+                link: "https://www.google.com/maps/d/embed?mid=1dkD-4pGtcab0Jd79Zp68SvMJet8BlDQ&ehbc=2E312F"
+            },
+            {
+                nome: "Serviços Gratuitos",
+                link: "https://www.google.com/maps/d/embed?mid=1qcf2QypXu1H5Bs0bTsB-OrE79RNQD8Y&ehbc=2E312F"
+            },
+            {
+                nome: "Cursos Gratuitos",
+                link: "https://www.google.com/maps/d/embed?mid=1SYSR7QVxmPES7t4fHFC68RIuLtU_FT4&ehbc=2E312F"
+            }
+        ];
+
+        let currentMapIndex = 0;
+
+        const mapFrame = document.getElementById('map-frame');
+        const prevBtn = document.getElementById('prev-map');
+        const nextBtn = document.getElementById('next-map');
+
+        function loadMap(index) {
+            mapFrame.src = maps[index].link;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentMapIndex = (currentMapIndex - 1 + maps.length) % maps.length;
+            loadMap(currentMapIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentMapIndex = (currentMapIndex + 1) % maps.length;
+            loadMap(currentMapIndex);
+        });
+
+        loadMap(currentMapIndex);
+
+
+
+
+        //chatbot
+
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = chatForm.querySelector('input');
+        const chatbox = document.getElementById('chatbox');
+
+        chatForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('message', 'user-message');
+            userDiv.textContent = "Você: " + userMessage;
+            chatbox.appendChild(userDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            chatInput.value = '';
+
+            try {
+                const response = await fetch('http://localhost:5000/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({message: userMessage})
+                });
+
+                const data = await response.json();
+
+                const botDiv = document.createElement('div');
+                botDiv.classList.add('message', 'bot-message');
+                botDiv.textContent = "Chatbot: " + (data.reply || "Erro na resposta");
+                chatbox.appendChild(botDiv);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            } catch (err) {
+                const botDiv = document.createElement('div');
+                botDiv.classList.add('message', 'bot-message');
+                botDiv.textContent = "Erro ao conectar com o chatbot.";
+                chatbox.appendChild(botDiv);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
